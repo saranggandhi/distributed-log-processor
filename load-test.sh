@@ -4,7 +4,7 @@ echo "🧪 Running load tests against the log processing system..."
 
 # Wait for services to be ready
 echo "⏳ Waiting for services to be ready..."
-until curl -f http://localhost:8080/api/logs/health > /dev/null 2>&1; do
+until curl -f http://localhost:8080/v1/api/logs/health > /dev/null 2>&1; do
   echo "Waiting for API Gateway..."
   sleep 2
 done
@@ -16,7 +16,7 @@ echo "📊 Generating test log events..."
 
 # Simple load test using curl
 for i in {1..100}; do
-  curl -X POST http://localhost:8080/api/logs \
+  curl -X POST http://localhost:8080/v1/api/logs \
     -H "Content-Type: application/json" \
     -d "{
       \"organizationId\": \"org-$((i % 5))\",
